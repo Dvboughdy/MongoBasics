@@ -1,0 +1,21 @@
+use("platzi_store")
+db.iot.updateMany(
+    { _id: { $in: [1, 2] } },
+    {
+        $set: {
+            qty: 100
+        }
+    }
+)
+db.iot.find()
+
+db.iot.updateMany(
+    { _id: { $in: [1, 2] }},
+    // {"item.name": "ab"},
+    {
+    $set: {
+    "item.name": "Prueba"
+}
+}
+)
+db.iot.find()

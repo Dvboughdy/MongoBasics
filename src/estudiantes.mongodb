@@ -1,0 +1,27 @@
+use("colegio")
+db.estudiantes.insertMany([
+    {
+        _id: 1,
+        nombre: "Jorge",
+        apellido: "Velandia",
+        curso: 301,
+        edad: 10
+    },
+
+    {
+        _id: 2,
+        nombre: "Laura",
+        apellido: "Lopez",
+        curso: 201,
+        edad: 7
+    },
+    {
+        _id: 3,
+        nombre: "Armando",
+        apellido: "Moreno",
+        curso: 607,
+        edad: 14
+    }
+]
+)
+db.estudiantes.find()

@@ -1,0 +1,19 @@
+use("platzi_store")
+
+db.productos.insertOne({
+   _id: 1,
+   name: "Product 1",
+   price: 1100
+}) 
+db.productos.insertOne({
+   _id: 2,
+   name: "Product 2",
+   price: 10
+})
+
+db.productos.insertOne({
+   _id: 3,
+   name: "NuevoCliente",
+   price: 30
+})
+// aunque se insetaron dos documentos el playground de VSCode se queda con el output de la ultima instrucción

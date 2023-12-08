@@ -1,0 +1,42 @@
+use("platzi_store")
+
+// Using $eq
+
+db.inventory.find({ qty: 20 })
+
+// verlo de forma explicita mediante $eq
+db.inventory.find({qty:{ $eq: 20 }})
+
+/* Busqueda de subdocumentos, en este caso 
+el subdocumento de item  */
+// por name
+db.inventory.find(
+    { "item.name": "ab" }
+)
+// devuelve 1 documento 
+
+// por code
+db.inventory.find(
+    { "item.code": "123" }
+)
+// Devuelve dos documentos
+
+// por code de forma explicita
+db.inventory.find(
+    {
+        "item.code":
+            { $eq: "123" }
+    }
+)
+// Devuelve dos documentos
+
+
+// Using $ne -> no equal
+// verlo de forma implicita mediante $ne
+db.inventory.find(
+    {
+        qty:
+            { $ne: 20 }
+    }
+)
+// Devuelve tres documentos que no poseen un atributo qty: 20

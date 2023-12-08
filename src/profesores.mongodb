@@ -1,0 +1,24 @@
+use("colegio")
+db.profesores.insertMany([
+    {
+        nombre: "Jorge",
+        apellido: "Velandia",
+        curso: 301,
+        edad: 10
+    },
+
+    {
+        nombre: "Laura",
+        apellido: "Lopez",
+        curso: 201,
+        edad: 7
+    },
+    {
+        nombre: "Armando",
+        apellido: "Moreno",
+        curso: 607,
+        edad: 14
+    }
+]
+)
+db.estudiantes.findOne({nombre:"Jorge"})

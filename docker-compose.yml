@@ -1,0 +1,13 @@
+version: '3.9' #version del formato yammel
+
+services: #los servicios para correr una API, cola de tarea, etc
+
+  mongodb: #Especificar el nombre del servicio (normalmente se pone el nombre de la base de datos)
+    image: mongo:5.0 #especificar la version de mongo; tambien especificar la imagen que se almacena en un cluster
+    ports:
+      - 27018:27017 #El puerto por el cual mongo establece la comunicación
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root123
+    volumes:
+      - ./mongo_data:/data/db #hace biding a data para guardar el estado de dicho contenedor

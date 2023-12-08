@@ -1,0 +1,40 @@
+use("platzi_store")
+
+/* Consultar el estado del Array */
+db.iot.find({
+    sensor: "A001",
+    date: "2022-01-03"
+}).count()
+
+/* insertar nuevo documento */
+db.iot.insertOne({
+    sensor: "A001",
+    date: "2022-01-03",
+    readings: [1212]
+}
+)
+/* Eliminar un Array segun la posición */
+db.iot.updateOne({
+    sensor: "A001",
+    date: "2022-01-03",
+},
+    {
+        $pop: {
+            readings: 1
+        }
+    }
+)
+db.iot.find()
+
+/* Actualizar un Array */
+db.iot.updateOne({
+    sensor: "A001",
+    date: "2022-01-03",
+},
+    {
+        $push: {
+            readings: 2323
+        }
+    }
+)
+db.iot.find()

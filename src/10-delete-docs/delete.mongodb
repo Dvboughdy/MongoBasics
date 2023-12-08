@@ -1,0 +1,22 @@
+use("platzi_store")
+/* Para un Id generado */
+db.productos.deleteOne({_id: 2})
+
+/* Para un ObjectId */
+db.productos.deleteOne({_id: ObjectId("1212")})
+
+/* Eliminar varios documentos */
+db.productos.deleteMany({price: 100})
+
+
+/* Βοrrar todos los documentos en forma masiva */
+db.productos.drop()
+
+/* Εliminar solo los documentos */
+/* Primera Alternativa */
+db.productos.remove({})
+/* Segunda Alternativa */
+db.productos.deleteMany({})
+
+db.productos.findOneAndDelete({_id: 3})
+db.productos.find()

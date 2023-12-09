@@ -7,3 +7,4 @@ db.trips.find(
 )
 
 // Projection sirve para filtrar los campos que se quieren mostrar de forma explicita
+// 1: mostrar, 0: ocultar

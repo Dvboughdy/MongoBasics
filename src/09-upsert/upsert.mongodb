@@ -1,0 +1,15 @@
+use("platzi_store")
+/* Insertar un documento y luego actulizar mediante la instrucción upsert */
+db.iot.updateOne({
+    sensor: "A001",
+    date: "2022-01-04",
+},
+    {
+        $push: {
+            readings: 45556
+        }
+    },{
+    upsert: true
+    }
+)
+db.iot.find()

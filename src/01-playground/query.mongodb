@@ -1,0 +1,4 @@
+use("sample_training")
+
+db.trips.find({$type: "NY"}).count()
+//ejecutando mi primera query

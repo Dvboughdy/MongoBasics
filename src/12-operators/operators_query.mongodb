@@ -1,0 +1,52 @@
+use("platzi_store")
+
+
+/* Primer operador $gt -> greater than 
+"se lee como (>)*/
+db.inventory.find({ qty: { $gt: 20 } })
+// Imprime los documentos con las cantidades "qty > 20"
+
+/* Segundo operador $gte -> greater than or equal 
+"se lee como (>=)" */
+db.inventory.find({ qty: { $gte: 20 } })
+// Imprime los documentos con las cantidades "qty >= 20"
+
+// De lado contrario
+
+/* Tercer operador $lt-> less than 
+"se lee como (<)*/
+db.inventory.find({ qty: { $lt: 20 } })
+// Imprime los documentos con las cantidades "qty < 20"
+
+
+/* Cuarto operador $lte-> less than or equal 
+"se lee como (<=)*/
+db.inventory.find({ qty: { $lte: 20 } })
+// Imprime los documentos con las cantidades "qty <= 20"
+
+/* Combinando operadores de comparacion tambien conocidos como "JOINS" 
+vistas como consultas avanzadas*/
+db.inventory.find({ qty: { $gte: 20, $lte: 25 } })
+// Imprime los documentos con las cantidades "qty >= 20 or <= 25"
+
+/* Consultas con subdocumentos y operadores de comparación */
+db.inventory.find(
+    {
+        "item.code": "123",
+        qty: { $gte: 20, $lte: 25 }
+    }
+)
+/* En este caso se indican dos condiciones que consulte principalmente a los 
+documentos que poseen el subdocumento "ab" y que consulte de la cantidad o "qty"
+los documentos que poseen la qty >= 25 o <= 20 en este caso no detecta ninguno
+pero con el subdocument code si puede detectar por lo menos 1 documento*/
+
+// si se quieren consultar los que sean diferentes del code 123 se usa el operador $ne
+db.inventory.find(
+    {
+        "item.code": { $ne: "123" },
+        qty: { $gte: 20, $lte: 25 }
+    }
+)
+
+

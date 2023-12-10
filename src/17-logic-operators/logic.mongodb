@@ -1,0 +1,11 @@
+use("sample_training");
+
+//  Consultas en la base de datos de sample_training utilizando operadores logicos de MongoDB en la coleccion inspections
+
+
+db.inspections.find(
+    {
+        sector: "Tax Preparers - 891",
+        result: "Unable to Located"
+    }
+    ).count();

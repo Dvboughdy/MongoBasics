@@ -1,0 +1,40 @@
+use("platzi_store")
+
+/* El operador $in sirve para obtener los documentos que contengan los valores de un array, ademas sirve para  objetos, valores especificos y arrays de objetos "es uno de los unicos operadores que sirve tanto para arrays como para valores numericos"
+ */
+db.inventory.find(
+    { qty: { $in: [20, 25] } }) // Obtiene los documentos que contengan los valores 20 o 25 en el campo qty
+
+// Ahora para el caso de los arrays de objetos
+db.inventory.find(
+    { tags: { $in: ["book", "electronics"] } }) // Obtiene los documentos que contengan los valores "book" o "electronics" en el campo tags
+
+/* Por otro lado, el operador $nin sirve para obtener los documentos que no contengan los valores de un array, ademas sirve para  objetos, valores especificos y arrays de objetos
+ */
+db.inventory.find(
+    { qty: { $nin: [20, 25] } }) // Obtiene los documentos que no contengan los valores 20 o 25 en el campo qty
+
+// Ahora para el caso de los arrays de objetos
+db.inventory.find(
+    { tags: { $nin: ["book", "electronics"] } }) // Obtiene los documentos que no contengan los valores "book" o "electronics" en el campo tags
+
+
+
+// Los siguiente operadores son exclusivamente para arrays de objetos
+
+/* El operador $all sirve para obtener los documentos que contengan todos los valores de un array, ademas sirve para  objetos, valores especificos y arrays de objetos*/
+
+db.inventory.find(
+    { tags: { $all: ["book", "school"] } }) // Obtiene los documentos que contengan los valores "book" y "school" en el campo tags sin importar el orden
+
+/* El operador $size sirve para obtener los documentos que contengan un array de un tamaño especifico, ademas sirve para  objetos, valores especificos y arrays de objetos
+*/
+db.inventory.find(
+    { tags: { $size: 2} }) // Obtiene los documentos que contengan un array de 2 elementos en el campo tags
+
+/* El operador $elemMatch sirve para obtener los documentos que contengan un array de  */
+db.survey.find(
+    {results: {$elemMatch: {product: "xyz"}}}) // En este caso obtiene del objeto results los documentos que contengan un array con el elemento especificado en este caso "product: "xyz""
+
+db.survey.find(
+    {results: {$elemMatch: {product: "xyz", score: {$gte: 8}}}}) // Ahora obtiene del objeto results los documentos que contengan un array con el elemento especificado en este caso "product: "xyz"" y que ademas el score sea mayor o igual a 8

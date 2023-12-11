@@ -11,5 +11,9 @@ db.trips.find(
 db.companies.find(
     {
         "relationships.0.person.last_name": "Zuckerberg" // Se obtienen todos los documentos que contengan el campo relationships con un valor igual a 0 y que dentro de este campo contenga el campo person con un valor igual a last_name y que dentro de este campo contenga el valor Zuckerberg
+    },{
+        // _id: 0,
+        name: 1,
+        relationships: 1
     }
 )

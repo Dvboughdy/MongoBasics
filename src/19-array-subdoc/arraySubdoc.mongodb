@@ -10,10 +10,28 @@ db.trips.find(
 
 db.companies.find(
     {
-        "relationships.0.person.last_name": "Zuckerberg" // Se obtienen todos los documentos que contengan el campo relationships con un valor igual a 0 y que dentro de este campo contenga el campo person con un valor igual a last_name y que dentro de este campo contenga el valor Zuckerberg
+        "relationships.0.person.first_name": "Mark" // Se obtienen todos los documentos que contengan el campo relationships con un valor igual a 0 y que dentro de este campo contenga el campo person con un valor igual a last_name y que dentro de este campo contenga el valor Zuckerberg
     },{
-        // _id: 0,
+        name: 1,
+        relationships: 1 
+        // Se muestran los campos name y relationships
+    }
+).count() // Se cuentan los documentos que cumplen coinciden con el nombre de Mark las cuales son 108 Directores de diferentes compañias
+
+// Ahora se desean consultar de todas las compañias que tienen como director en su primer nombre Mark y que se consulte de forma especifica el campo person.first_name mediante el operador $elemMatch
+
+
+db.companies.find(
+    {
+        relationships: {
+            $elemMatch: {
+                "person.first_name": "Mark"
+            }
+        }
+    },{
         name: 1,
         relationships: 1
     }
-)
+).count() // Se obtienen 526 documentos que tienen como director en su primer nombre Mark en especifico utilizando el operador $elemMatch
+
+// el operador $project se utiliza para mostrar solo los campos que se desean, en este caso se mostraran los campos name y relationships

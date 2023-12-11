@@ -1,0 +1,15 @@
+use("sample_training")
+
+db.trips.find(
+    {
+    "start station location.type": "Point",
+    }
+)// Se obtienen todos los documentos que contengan el campo start station location.type con un valor igual a Point
+
+// Primera consulta de un subdocumento
+
+db.companies.find(
+    {
+        "relationships.0.person.last_name": "Zuckerberg" // Se obtienen todos los documentos que contengan el campo relationships con un valor igual a 0 y que dentro de este campo contenga el campo person con un valor igual a last_name y que dentro de este campo contenga el valor Zuckerberg
+    }
+)

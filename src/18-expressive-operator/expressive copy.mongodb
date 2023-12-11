@@ -1,0 +1,25 @@
+use("sample_training")
+
+// Ademas del operador $expr, se puede utilizar el operador $eq para comparar si dos campos son iguales en este caso
+db.trips.find(
+    {
+        $expr: {
+            $eq: ["$start station id", "$end station id"] // En este caso se obtienen todos los documentos que contengan el campo start station id con un valor igual al campo end station id
+        }
+    }
+).count() // En este caso se obtienen 316 documentos
+
+
+
+// Ahora si se quiere saber cuantos han iniciado y finalizado en la misma estación y ademas su duración fue mayor a X tiempo se puede utilizar el operador $and
+db.trips.find(
+    {
+        $expr: {
+            $and: [
+                {$eq: ["$start station id", "$end station id"]},
+                {$gte: ["$tripduration", 1200]} // En este caso se obtienen todos los documentos que contengan el campo tripduration con un valor mayor o igual a 120
+            ]
+        }
+    }
+).count() // En este caso se obtienen 173 documentos
+

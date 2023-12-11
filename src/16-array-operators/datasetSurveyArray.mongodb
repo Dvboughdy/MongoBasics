@@ -1,6 +1,7 @@
 // Archivo query de las encuestas o survey
 use("platzi_store")
 db.survey.drop();
+// Array de objetos en el cual se busca un objeto en especifico
 db.survey.insertMany([
   {
     _id: 1,

@@ -2,10 +2,76 @@ use("sample_training");
 
 //  Consultas en la base de datos de sample_training utilizando operadores logicos de MongoDB en la coleccion inspections
 
-
+// Este es un and implicito, ya que se estan especificando dos campos
 db.inspections.find(
     {
-        sector: "Tax Preparers - 891",
-        result: "Unable to Located"
+        sector: "Tax Preparers - 891", // Este campo no existe en la coleccion
+        result: "Unable to Locate" // Este campo no existe en la coleccion
     }
     ).count();
+
+/* Ahora para el caso de un and explicito, se utiliza el operador $and que se puede ver como la forma completa de un and implicito, la estructura del $and es la siguiente: { $and: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] } */
+
+// Ejemplo *
+db.inspections.find(
+    {
+        $and: [
+            {sector: "Tax Preparers - 891"}, // Este campo no existe en la coleccion
+            {result: "Unable to Locate"} // Este campo no existe en la coleccion
+        ]
+    }
+    ).count();
+
+/*  Ahora para el caso de un or explicito, se utiliza el operador $or que se puede ver como la forma completa de un or implicito, la estructura del $or es la siguiente: { $or: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] }
+ */
+
+// Ejemplo *
+db.inspections.find(
+    {
+        $or: [
+            {sector: "Tax Preparers - 891"}, // Este campo no existe en la coleccion
+            {result: "Unable to Locate"} // Este campo no existe en la coleccion
+        ]
+    }
+    ).count()// En este caso se obtienen todos los documentos que contengan el campo sector con el valor "Tax Preparers - 891" o el campo result con el valor "Unable to Locate" por lo tanto la cantidad de documentos es mas grande que con la forma implicita
+
+/* Ahora para negar el or explicito se utiliza el operador $nor que se puede ver como la forma completa de un nor implicito, la estructura del $nor es la siguiente: { $nor: [ { <expression1> }, { <expression2> } , ... , { <expressionN> } ] } */
+
+// Ejemplo *
+db.inspections.find(
+    {
+        $nor: [
+            {sector: "Tax Preparers - 891"}, // Este campo no existe en la coleccion
+            {result: "Unable to Locate"} // Este campo no existe en la coleccion
+        ]
+    }
+    ).count()// En este caso se obtienen todos los documentos que no contengan el campo sector con el valor "Tax Preparers - 891" ni el campo result con el valor "Unable to Locate" por lo tanto la cantidad de documentos es mas grande que con la forma implicita
+
+
+// Si solo se mostrar los documenos que no poseen resutlados espeficicos se puede utilizar projection para mostrar solo los campos que se desean, en este caso se mostraran los campos sin el id
+    db.inspections.find(
+        {
+            $nor: [
+                {result: "No Violation Issued"}, // Este campo no existe en la coleccion
+                {result: "Unable to Locate"} // Este campo no existe en la coleccion
+            ]
+        },
+        {
+            result: 1,
+            _id: 0
+        }
+        ).count() // En este caso se obtienen todos los documentos que no contengan el campo result con el valor "No Violation Issued" ni el campo result con el valor "Unable to Locate"
+
+/* Ahora para negar el and explicito se utiliza el operador $not que se puede ver como la forma completa de un not implicito, la estructura del $not es la siguiente: { field: { $not: { <operator-expression> } } }, a diferencia de los anteriore operadores, el operador $not solo puede tener un campo dentro de el, por lo tanto no se puede utilizar para negar multiples campos
+ */
+
+// Ejemplo *
+db.inspections.find(
+    {
+        result: {
+            $not: {
+                $regex: /Unable to Locate/
+            }
+        }
+    }
+    )// En este caso se obtienen todos los documentos que no contengan el campo result con el valor "No Violation Issued"

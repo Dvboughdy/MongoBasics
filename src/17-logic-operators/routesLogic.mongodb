@@ -1,0 +1,32 @@
+use("sample_training");
+db.routes.find(
+    {
+        airplane: "E70"
+    }
+    )
+
+// Ahroa si se quiere saber el destino de los vuelos hacia BOG o que salgan de BOG se puede utilizar el operador $or
+db.routes.find(
+    {
+        $or: [
+            {dst_airport: "BOG"},
+            {src_airport: "BOG"}
+        ]
+    }
+    ).count() // En este caso se obtienen todos los documentos que contengan el campo dst_airport con el valor "BOG" o el campo src_airport con el valor "BOG" por lo tanto la cantidad de documentos es mas grande que con la forma implicita
+
+// Ahora para unir tanto la primera consulta como la segunda se puede utilizar el operador $and utilizando un $or anidado en este caso el $and posee una condicion adicional esta representado por la consulta de $or
+
+db.routes.find(
+    {
+        $and: [
+            {airplane: "E70"},
+            {
+                $or: [
+                    {dst_airport: "BOG"},
+                    {src_airport: "BOG"}
+                ]
+            }
+        ]
+    }
+    ).count() // En este caso se obtienen todos los documentos que contengan el campo airplane con el valor "E70" y el campo dst_airport con el valor "BOG" o el campo src_airport con el valor "BOG" por lo tanto la cantidad de documentos es mas grande que con la forma implicita

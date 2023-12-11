@@ -1,0 +1,18 @@
+use("platzi_store")
+
+// Los expressive operators son operadores que nos permiten hacer consultas mas especificas a la base de datos
+
+// Ejemplo sin un expressive operator
+db.monthlyBudget.find(
+    {budget: {$gte: 100}}) // En este caso se obtienen todos los documentos que contengan el campo budget con un valor mayor o igual a 100
+
+// Ahora si se quiere aplicar un expressive operator se puede utilizar el operador $expr
+db.monthlyBudget.find(
+    {
+     $expr:
+        {$gte:
+            ["$spent","$budget"] // El $ indica que se va a utilizar el valor del campo en especifico en comparación con el ejemplo anterior, en este caso se compara el valor del campo spent con el valor del campo budget si se trata de un presupuesto en el que el spente supera el budget
+        }
+    }
+)
+// En este caso se obtienen todos los documentos que contengan el campo budget con un valor mayor o igual al campo spent con el fin de saber si un presupuesto es mayor o igual a lo que se gasto

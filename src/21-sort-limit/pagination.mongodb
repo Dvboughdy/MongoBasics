@@ -1,0 +1,6 @@
+use("platzi_store")
+// Una forma de paginar es con skip y limit en este caso se saltan los primeros 9 documentos y se muestran los siguientes 3 documentos
+db.categories
+.find()
+.skip(9) // skip saltara al documento 10
+.limit(3) // limit es para limitar el número de documentos que se muestran en este caso se muestran 3 documentos

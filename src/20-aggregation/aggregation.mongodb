@@ -1,0 +1,18 @@
+// Utilizando la base de datos sample_airbnb.listingsAndReviews,
+use("sample_airbnb")
+// Consulta sin utilizar operadores de agregación, para obtener el número de documentos que tienen Wi-Fi como uno de sus amenidades.
+db.listingsAndReviews.find({
+    amenities: "Wifi"
+},{
+    price: 1, // para mostrar el precio
+    amenities: 1 // para mostrar las amenidades
+}
+)
+
+// Consulta utilizando agregación, para obtener el número de documentos que tienen Wi-Fi como una de sus comodidades, a diferencia de la consulta anterior, esta consulta utiliza operadores de agregación que permiten realizar consultas más complejas.
+db.listingsAndReviews.aggregate( // agregate es para hacer consultas con operadores de agregación este funciona como un pipeline los cuales se estructuran en etapas de la siguiente manera:[{etapa1},{etapa2},{etapa3},...,{etapaN}]
+[{ $match: {amenities: "Wifi"}}, /* $match es para filtrar los documentos que cumplan con la condición */
+{ $project: { address: 1}}, /* $project es para mostrar los campos que se desean mostrar */
+{ $group: {_id: "$address.country", count:{$sum: 1}}} /* $group es para agrupar los documentos que cumplan con la condición y $sum es para sumar los documentos que cumplan con la condición */
+]
+)// Esta consulta devuelve un arreglo con los documentos que cumplan con la condición lo que permite realizar consultas más complejas haciendo joins de datos de diferentes colecciones con una condición en común

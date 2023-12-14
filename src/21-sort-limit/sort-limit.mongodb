@@ -1,0 +1,4 @@
+use("sample_training")
+db.zips
+.find({pop: {$gt: 1000}})
+.sort({pop: 1})// sort es para ordenar los documentos que cumplan con la condición, 1 es para ordenar de menor a mayor y -1 es para ordenar de mayor a menor

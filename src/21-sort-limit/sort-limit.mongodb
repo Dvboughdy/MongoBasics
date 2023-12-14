@@ -1,4 +1,6 @@
 use("sample_training")
 db.zips
-.find({pop: {$gt: 1000}})
-.sort({pop: 1})// sort es para ordenar los documentos que cumplan con la condición, 1 es para ordenar de menor a mayor y -1 es para ordenar de mayor a menor
+.find({pop: {$gte: 100}})
+.sort({pop: -1})// sort es para ordenar los documentos que cumplan con la condición, 1 es para ordenar de menor a mayor y -1 es para ordenar de mayor a menor
+.limit(2)// limit es para limitar el número de documentos que se muestran
+.skip(2)// skip es para saltar los documentos que cumplan con la condición y mostrar los siguientes documentos que cumplan con la condición en este caso se saltan los primeros 2 documentos que cumplan con la condición y se muestran los siguientes 2 documentos que cumplan con la condición si fuera 4 se saltarían los primeros 4 documentos que cumplan con la condición y se mostrarían los siguientes 4 documentos que cumplan con la condición
